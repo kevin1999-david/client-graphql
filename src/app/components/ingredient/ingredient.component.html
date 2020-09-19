@@ -1,0 +1,78 @@
+<div class="container" style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    INGREDIENTS
+                </div>
+                <div class="card-body">
+                    <form #projectForm="ngForm" (ngSubmit)="newIngredient(projectForm)">
+                        <div class="form-group">
+                            <input type="text" name="name" #name="ngModel" [(ngModel)]="nameIngredient" placeholder="Insert a name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="calories" #origin="ngModel" [(ngModel)]="calorieIngredient" placeholder="Insert a calories" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Ingredient</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover bg-white">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Calories</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ingredient of ingredients">
+                        <td>
+                            {{ingredient.id}}
+                        </td>
+                        <td>
+                            {{ingredient.name}}
+                        </td>
+                        <td>
+                            {{ingredient.calories}}
+                        </td>
+                        <td class="d-flex justify-content-center">
+                            <a [routerLink]="['/ingredient-edit', ingredient.id]" class="btn btn-success ml-1"> <i class="fas fa-edit"></i> </a>
+                            <a class="btn btn-danger text-white ml-1" data-toggle="modal" data-target="#fm-modal-grid" (click)="setIdDelete(ingredient.id, ingredient.name)"> <i class="fas fa-trash-alt"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="fm-modal-grid" tabindex="-1" role="dialog" aria-labelledby="fm-modal-grid" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CONFIRM DELETE</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Are you sure to remove the ingredient {{infoID.name}}?</h5>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal" (click)="deleteYes();">Accept</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
